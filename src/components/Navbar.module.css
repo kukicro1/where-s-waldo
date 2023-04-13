@@ -1,0 +1,30 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  background-color: rgb(37, 34, 34);
+  color: rgb(240, 228, 228);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 70px;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.findingsLeft {
+  background-color: rgb(194, 32, 32);
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.newGame:hover,
+.findingsLeft:hover {
+  cursor: pointer;
+}
