@@ -1,6 +1,5 @@
 import StartGameCSS from './StartGame.module.css'
-import CartoonUniverse from './carousel/CartoonUniverse'
-// import WaldoOnSnow from './carousel/WaldoOnSnow'
+import CarouselCard from './carousel/CarouselCard'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 // Images:
@@ -58,31 +57,13 @@ const games: GameProps[] = [
 ]
 
 export default function StartGame(): JSX.Element {
-  // const [currentIndex, setCurrentIndex] = useState(0)
-
-  // const handleSlideChange = (index: number) => {
-  //   setCurrentIndex(index)
-  // }
-
-  // const renderDots = () => {
-  //   return games.map((game, index) => (
-  //     <span
-  //       key={index}
-  //       className={`${StartGameCSS.dot} ${
-  //         currentIndex === index ? StartGameCSS.active : ''
-  //       }`}
-  //       onClick={() => setCurrentIndex(index)}
-  //     ></span>
-  //   ))
-  // }
-
   return (
     <div className={StartGameCSS.container}>
       <AliceCarousel
         items={games.map((game) => (
-          <div key={game.cover}>
+          <div key={game.cover} className={StartGameCSS.carouselContainer}>
             <div>
-              <CartoonUniverse
+              <CarouselCard
                 cover={game.cover}
                 images={game.images}
                 alternative={game.alt}
@@ -92,28 +73,10 @@ export default function StartGame(): JSX.Element {
         ))}
         infinite
         autoPlay={true}
-        autoPlayInterval={3000}
-        // autoPlayInterval={1}
+        autoPlayInterval={4000}
         mouseTracking
-        // disableButtonsControls={true as boolean}
-        // disableDotsControls={false as boolean}
+        disableButtonsControls={true}
       />
-      {/* <div className={StartGameCSS.carouselContainer}>{renderComponent()}</div> */}
-      {/* <div className={StartGameCSS.buttonContainer}>
-        <button
-          className={StartGameCSS.button}
-          onClick={() => handleSlideChange(currentIndex)}
-        >
-          {'<'}
-        </button>
-        <button
-          className={StartGameCSS.button}
-          onClick={() => handleSlideChange(currentIndex)}
-        >
-          {'>'}
-        </button>
-      </div> */}
-      {/* <div className={StartGameCSS.dots}>{renderDots()}</div> */}
     </div>
   )
 }

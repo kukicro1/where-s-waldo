@@ -1,6 +1,6 @@
 import CarouselCardCSS from './carouselCard.module.css'
 
-interface CartoonUniverseProps {
+interface CarouselCardProps {
   cover: string
   images: {
     [key: string]: string
@@ -10,11 +10,11 @@ interface CartoonUniverseProps {
   }
 }
 
-export default function CartoonUniverse({
+export default function CarouselCard({
   cover,
   images,
   alternative,
-}: CartoonUniverseProps) {
+}: CarouselCardProps) {
   return (
     <div className={CarouselCardCSS.cardContainer}>
       <div className={CarouselCardCSS.imageContainer}>
