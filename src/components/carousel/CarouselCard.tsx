@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import CarouselCardCSS from './carouselCard.module.css'
+import Game from '../Game'
 
 interface CarouselCardProps {
   cover: string
@@ -67,7 +69,9 @@ export default function CarouselCard({
           </div>
         </div>
         <div>
-          <button className={CarouselCardCSS.button}>Start</button>
+          <Link to='/game'>
+            <button className={CarouselCardCSS.button}>Start</button>
+          </Link>
         </div>
       </div>
     </div>

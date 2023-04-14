@@ -4,7 +4,7 @@ import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 // Images:
 import cartoonUniverseCover from './game_photo/cartoon-universe-cover.jpg'
-import waldoOnSnowCover from './game_photo/waldo_on_beach-cover.jpg'
+import waldoOnSnowCover from './game_photo/waldo_on_snow-cover.jpg'
 import digimon from './game_photo/digimon.png'
 import waldo from './game_photo/waldo.png'
 import pokeball from './game_photo/pokeball.png'
