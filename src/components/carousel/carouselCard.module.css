@@ -1,0 +1,92 @@
+.cardContainer {
+  background-color: rgb(201, 201, 201);
+  min-width: 700px;
+  height: 600px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  align-content: center;
+}
+
+.imageContainer > img {
+  height: 600px;
+  width: 400px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.gameInfo {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1.5fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.gameInfoTitle {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.characterContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+
+.characterImg {
+  height: 80px;
+  width: auto;
+}
+
+.characterInfo {
+  width: 120px;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.easy {
+  color: green;
+  font-weight: bold;
+}
+
+.medium {
+  color: yellow;
+  font-weight: bold;
+}
+
+.hard {
+  color: rgb(250, 85, 25);
+  font-weight: bold;
+}
+
+.veryHard {
+  color: red;
+  font-weight: bold;
+}
+
+.button {
+  width: 150px;
+  height: 50px;
+  background-color: #f9d949;
+  font-size: 2em;
+  font-family: 'Times New Roman', Times, serif;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px solid black;
+}
