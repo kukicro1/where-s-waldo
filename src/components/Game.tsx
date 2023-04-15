@@ -1,11 +1,13 @@
 import GameCSS from './Game.module.css'
-import cartoonUniverse from './game_photo/cartoon-universe.jpg'
-import waldoOnSnow from './game_photo/waldo_on_snow.jpg'
 
-export default function Game() {
+interface GameProps {
+  gameImage: string | undefined
+}
+
+export default function Game({ gameImage }: GameProps) {
   return (
     <div>
-      <img className={GameCSS.image} src={waldoOnSnow} alt='' />
+      <img className={GameCSS.image} src={gameImage} alt='' />
     </div>
   )
 }
