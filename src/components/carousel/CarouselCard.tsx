@@ -70,7 +70,7 @@ export default function CarouselCard({
           </div>
         </div>
         <div>
-          <Link to='/game' onClick={() => setCover(cover)}>
+          <Link to='/game' onClick={() => setCover(cover, alternative)}>
             <button className={CarouselCardCSS.button}>Start</button>
           </Link>
         </div>

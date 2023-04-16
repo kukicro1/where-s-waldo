@@ -18,7 +18,7 @@ import wilma from './components/game_photo/wilma.png'
 import thief from './components/game_photo/thief.png'
 import wizard from './components/game_photo/wizard.png'
 
-interface GameProps {
+interface AppProps {
   cover: string
   images: {
     [key: string]: string
@@ -28,7 +28,7 @@ interface GameProps {
   }
 }
 
-const games: GameProps[] = [
+const games: AppProps[] = [
   {
     cover: cartoonUniverseCover,
     images: {
@@ -63,9 +63,18 @@ const games: GameProps[] = [
 
 function App() {
   const [gameImage, setGameImage] = useState()
+  const [menuNames, setMenuNames] = useState<{
+    [key: string]: string
+  }>()
 
-  function setCover(cover: string) {
+  function setCover(
+    cover: string,
+    names: {
+      [key: string]: string
+    }
+  ) {
     setGameImage(cover === cartoonUniverseCover ? cartoonUniverse : waldoOnSnow)
+    setMenuNames(names)
   }
 
   return (
@@ -76,7 +85,10 @@ function App() {
           path='/'
           element={<StartGame games={games} setCover={setCover} />}
         />
-        <Route path='/game' element={<Game gameImage={gameImage} />} />
+        <Route
+          path='/game'
+          element={<Game gameImage={gameImage} names={menuNames} />}
+        />
         <Route path='/result' element={<Result />} />
       </Routes>
       <Footer />
