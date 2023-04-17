@@ -2,75 +2,72 @@ import { Link } from 'react-router-dom'
 import CarouselCardCSS from './carouselCard.module.css'
 
 interface CarouselCardProps {
-  cover: string
-  images: {
-    [key: string]: string
+  game: {
+    cover: string
+    images: {
+      [key: string]: string
+    }
+    names: {
+      [key: string]: string
+    }
   }
-  alternative: {
-    [key: string]: string
-  }
-  setCover: Function
+  setGame: Function
 }
 
-export default function CarouselCard({
-  cover,
-  images,
-  alternative,
-  setCover,
-}: CarouselCardProps) {
+export default function CarouselCard({ game, setGame }: CarouselCardProps) {
   return (
     <div className={CarouselCardCSS.cardContainer}>
       <div className={CarouselCardCSS.imageContainer}>
-        <img src={cover} alt='Game' />
+        <img src={game.cover} alt='Game' />
       </div>
       <div className={CarouselCardCSS.gameInfo}>
         <div className={CarouselCardCSS.gameInfoTitle}>Cartoon Universe</div>
         <div className={CarouselCardCSS.characterContainer}>
           <img
             className={CarouselCardCSS.characterImg}
-            src={images.easy}
-            alt={alternative.easy}
+            src={game.images.easy}
+            alt={game.names.easy}
           />
           <div className={CarouselCardCSS.characterInfo}>
             <div className={CarouselCardCSS.easy}>Easy:</div>
-            <div>{alternative.easy}</div>
+            <div>{game.names.easy}</div>
           </div>
         </div>
         <div className={CarouselCardCSS.characterContainer}>
           <img
             className={CarouselCardCSS.characterImg}
-            src={images.medium}
-            alt={alternative.medium}
+            src={game.images.medium}
+            alt={game.names.medium}
           />
           <div className={CarouselCardCSS.characterInfo}>
             <div className={CarouselCardCSS.medium}>Medium:</div>
-            <div>{alternative.medium}</div>
+            <div>{game.names.medium}</div>
           </div>
         </div>
         <div className={CarouselCardCSS.characterContainer}>
           <img
             className={CarouselCardCSS.characterImg}
-            src={images.hard}
-            alt={alternative.hard}
+            src={game.images.hard}
+            alt={game.names.hard}
           />
           <div className={CarouselCardCSS.characterInfo}>
             <div className={CarouselCardCSS.hard}>Hard:</div>
-            <div>{alternative.hard}</div>
+            <div>{game.names.hard}</div>
           </div>
         </div>
         <div className={CarouselCardCSS.characterContainer}>
           <img
             className={CarouselCardCSS.characterImg}
-            src={images.veryHard}
-            alt={alternative.veryHard}
+            src={game.images.veryHard}
+            alt={game.names.veryHard}
           />
           <div className={CarouselCardCSS.characterInfo}>
             <div className={CarouselCardCSS.veryHard}>Very Hard:</div>
-            <div>{alternative.veryHard}</div>
+            <div>{game.names.veryHard}</div>
           </div>
         </div>
         <div>
-          <Link to='/game' onClick={() => setCover(cover, alternative)}>
+          <Link to='/game' onClick={() => setGame(game.cover, game)}>
             <button className={CarouselCardCSS.button}>Start</button>
           </Link>
         </div>

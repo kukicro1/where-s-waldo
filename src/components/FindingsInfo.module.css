@@ -1,0 +1,51 @@
+.findings {
+  width: 150px;
+  border-radius: 5px;
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 0.7em;
+}
+
+.ul {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.li {
+  height: 55px;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+.li:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.li:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.li:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: white;
+}
+
+.img {
+  height: 50px;
+}

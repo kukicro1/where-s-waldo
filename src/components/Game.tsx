@@ -15,7 +15,6 @@ export default function Game({ gameImage, names }: GameProps) {
   const [menu, setMenu] = useState<JSX.Element | null>()
 
   function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-    console.log(e)
     setMenuPosition({ x: e.pageX, y: e.pageY })
     setMenuStatus((pervStatus) => !pervStatus)
     return

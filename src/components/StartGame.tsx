@@ -9,16 +9,16 @@ interface StartGameProps {
     images: {
       [key: string]: string
     }
-    alt: {
+    names: {
       [key: string]: string
     }
   }[]
-  setCover: Function
+  setGame: Function
 }
 
 export default function StartGame({
   games,
-  setCover,
+  setGame,
 }: StartGameProps): JSX.Element {
   return (
     <div className={StartGameCSS.container}>
@@ -27,10 +27,12 @@ export default function StartGame({
           <div key={game.cover} className={StartGameCSS.carouselContainer}>
             <div>
               <CarouselCard
-                cover={game.cover}
-                images={game.images}
-                alternative={game.alt}
-                setCover={setCover}
+                game={game}
+                setGame={setGame}
+                // cover={game.cover}
+                // images={game.images}
+                // alternative={game.alt}
+                // setCover={setCover}
               />
             </div>
           </div>

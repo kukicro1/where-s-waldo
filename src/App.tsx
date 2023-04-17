@@ -18,17 +18,17 @@ import wilma from './components/game_photo/wilma.png'
 import thief from './components/game_photo/thief.png'
 import wizard from './components/game_photo/wizard.png'
 
-interface AppProps {
+interface GameProps {
   cover: string
   images: {
     [key: string]: string
   }
-  alt: {
+  names: {
     [key: string]: string
   }
 }
 
-const games: AppProps[] = [
+const games: GameProps[] = [
   {
     cover: cartoonUniverseCover,
     images: {
@@ -37,7 +37,7 @@ const games: AppProps[] = [
       hard: pokeball,
       veryHard: sonic,
     },
-    alt: {
+    names: {
       easy: 'Digimon',
       medium: 'Waldo',
       hard: 'Pokeball',
@@ -52,7 +52,7 @@ const games: AppProps[] = [
       hard: thief,
       veryHard: wizard,
     },
-    alt: {
+    names: {
       easy: 'Waldo',
       medium: 'Wilma',
       hard: 'Thief',
@@ -66,24 +66,21 @@ function App() {
   const [menuNames, setMenuNames] = useState<{
     [key: string]: string
   }>()
+  const [chosenGame, setChosenGame] = useState<GameProps>()
 
-  function setCover(
-    cover: string,
-    names: {
-      [key: string]: string
-    }
-  ) {
+  function setGame(cover: string, game: GameProps) {
     setGameImage(cover === cartoonUniverseCover ? cartoonUniverse : waldoOnSnow)
-    setMenuNames(names)
+    setMenuNames(game.names)
+    setChosenGame(game)
   }
 
   return (
     <>
-      <Navbar />
+      <Navbar game={chosenGame} />
       <Routes>
         <Route
           path='/'
-          element={<StartGame games={games} setCover={setCover} />}
+          element={<StartGame games={games} setGame={setGame} />}
         />
         <Route
           path='/game'
