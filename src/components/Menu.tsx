@@ -16,13 +16,26 @@ export default function Menu({ names, position }: MenuProps) {
     left: `${position.x}px`,
     top: `${position.y}px`,
   }
+
+  function findings(character: string | undefined) {
+    console.log(character)
+  }
+
   return (
     <div className={MenuCSS.menu} style={menuStyle}>
       <ul className={MenuCSS.ul}>
-        <li className={MenuCSS.li}>{names?.easy}</li>
-        <li className={MenuCSS.li}>{names?.medium}</li>
-        <li className={MenuCSS.li}>{names?.hard}</li>
-        <li className={MenuCSS.li}>{names?.veryHard}</li>
+        <li className={MenuCSS.li} onClick={() => findings(names?.easy)}>
+          {names?.easy}
+        </li>
+        <li className={MenuCSS.li} onClick={() => findings(names?.medium)}>
+          {names?.medium}
+        </li>
+        <li className={MenuCSS.li} onClick={() => findings(names?.hard)}>
+          {names?.hard}
+        </li>
+        <li className={MenuCSS.li} onClick={() => findings(names?.veryHard)}>
+          {names?.veryHard}
+        </li>
       </ul>
     </div>
   )

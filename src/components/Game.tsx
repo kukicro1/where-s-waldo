@@ -15,14 +15,13 @@ export default function Game({ gameImage, names }: GameProps) {
   const [menu, setMenu] = useState<JSX.Element | null>()
 
   function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-    setMenuPosition({ x: e.clientX, y: e.clientY })
+    console.log(e)
+    setMenuPosition({ x: e.pageX, y: e.pageY })
     setMenuStatus((pervStatus) => !pervStatus)
     return
   }
 
   useEffect(() => {
-    console.log('Render Menu')
-    console.log(menuPosition)
     menuStatus
       ? setMenu(<Menu names={names} position={menuPosition} />)
       : setMenu(null)
