@@ -15,9 +15,6 @@
 }
 
 .findingsContainer {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   position: relative;
   height: 40px;
 }

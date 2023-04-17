@@ -67,6 +67,9 @@ function App() {
     [key: string]: string
   }>()
   const [chosenGame, setChosenGame] = useState<GameProps>()
+  const [foundCharacters, setFoundCharacters] = useState<
+    (string | undefined)[]
+  >([])
 
   function setGame(cover: string, game: GameProps) {
     setGameImage(cover === cartoonUniverseCover ? cartoonUniverse : waldoOnSnow)
@@ -74,9 +77,21 @@ function App() {
     setChosenGame(game)
   }
 
+  function checkFindings(character: string | undefined) {
+    if (character === chosenGame?.names.easy) {
+      return setFoundCharacters((prevFound) => [...prevFound, character])
+    } else if (character === chosenGame?.names.medium) {
+      return setFoundCharacters((prevFound) => [...prevFound, character])
+    } else if (character === chosenGame?.names.hard) {
+      return setFoundCharacters((prevFound) => [...prevFound, character])
+    } else if (character === chosenGame?.names.veryHard) {
+      return setFoundCharacters((prevFound) => [...prevFound, character])
+    }
+  }
+
   return (
     <>
-      <Navbar game={chosenGame} />
+      <Navbar game={chosenGame} foundCharacters={foundCharacters} />
       <Routes>
         <Route
           path='/'
@@ -84,7 +99,14 @@ function App() {
         />
         <Route
           path='/game'
-          element={<Game gameImage={gameImage} names={menuNames} />}
+          element={
+            <Game
+              gameImage={gameImage}
+              names={menuNames}
+              checkFindings={checkFindings}
+              foundCharacters={foundCharacters}
+            />
+          }
         />
         <Route path='/result' element={<Result />} />
       </Routes>

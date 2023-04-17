@@ -15,27 +15,37 @@ export interface GameProps {
         }
       }
     | undefined
+  foundCharacters: (string | undefined)[]
 }
 
-export default function Navbar({ game }: GameProps) {
+export default function Navbar({ game, foundCharacters }: GameProps) {
   const location = useLocation()
   const title = location.pathname === '/'
   const hideTimer = location.pathname === '/'
   const hideNumber = location.pathname === '/'
+
   const [remainingCharactersStatus, setRemainingCharactersStatus] =
     useState(false)
   const [renderRemainingFindings, setRenderRemainingFindings] =
     useState<JSX.Element | null>()
+  const [remainingCharacterCounter, setRemainingCharacterCounter] =
+    useState<number>(4)
 
   function handleRemainingFindingsClick() {
     setRemainingCharactersStatus((prevStatus) => !prevStatus)
   }
 
   useEffect(() => {
+    setRemainingCharacterCounter(4 - foundCharacters.length)
+  }, [foundCharacters])
+
+  useEffect(() => {
     setRenderRemainingFindings(
-      remainingCharactersStatus ? <FindingsInfo game={game} /> : null
+      remainingCharactersStatus ? (
+        <FindingsInfo game={game} foundCharacters={foundCharacters} />
+      ) : null
     )
-  }, [remainingCharactersStatus, game])
+  }, [remainingCharactersStatus, foundCharacters, game])
 
   return (
     <>
@@ -58,7 +68,7 @@ export default function Navbar({ game }: GameProps) {
               className={NavbarCSS.findingsLeft}
               onClick={() => handleRemainingFindingsClick()}
             >
-              <div>4</div>
+              <div>{remainingCharacterCounter}</div>
             </div>
             {renderRemainingFindings}
           </div>

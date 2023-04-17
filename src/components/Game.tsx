@@ -7,9 +7,16 @@ interface GameProps {
   names?: {
     [key: string]: string
   }
+  checkFindings: Function
+  foundCharacters: (string | undefined)[]
 }
 
-export default function Game({ gameImage, names }: GameProps) {
+export default function Game({
+  gameImage,
+  names,
+  checkFindings,
+  foundCharacters,
+}: GameProps) {
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
   const [menuStatus, setMenuStatus] = useState(false)
   const [menu, setMenu] = useState<JSX.Element | null>()
@@ -22,9 +29,21 @@ export default function Game({ gameImage, names }: GameProps) {
 
   useEffect(() => {
     menuStatus
-      ? setMenu(<Menu names={names} position={menuPosition} />)
+      ? setMenu(
+          <Menu
+            names={names}
+            position={menuPosition}
+            checkFindings={checkFindings}
+            foundCharacters={foundCharacters}
+          />
+        )
       : setMenu(null)
-  }, [menuStatus, menuPosition, names])
+  }, [menuStatus, menuPosition, names, checkFindings, foundCharacters])
+
+  useEffect(() => {
+    setMenu(null)
+    setMenuStatus(false)
+  }, [foundCharacters])
 
   return (
     <div>
