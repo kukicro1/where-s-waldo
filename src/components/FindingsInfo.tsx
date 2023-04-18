@@ -1,32 +1,30 @@
-import { useEffect, useState } from 'react'
 import FindingsInfoCSS from './FindingsInfo.module.css'
-import { GameProps } from './Navbar'
 
-export default function FindingsInfo({ game, foundCharacters }: GameProps) {
-  const [foundEasy, setFoundEasy] = useState('')
-  const [foundMedium, setFoundMedium] = useState('')
-  const [foundHard, setFoundHard] = useState('')
-  const [foundVeryHard, setFoundVeryHard] = useState('')
-
-  const easy = document.querySelector(`#${game?.names.easy}`)
-  const medium = document.querySelector(`#${game?.names.medium}`)
-  const hard = document.querySelector(`#${game?.names.hard}`)
-  const veryHard = document.querySelector(`#${game?.names.veryHard}`)
-
-  useEffect(() => {
-    foundCharacters.forEach((character) => {
-      if (character === easy?.id) {
-        setFoundEasy(FindingsInfoCSS.foundCharacters)
-      } else if (character === medium?.id) {
-        setFoundMedium(FindingsInfoCSS.foundCharacters)
-      } else if (character === hard?.id) {
-        setFoundHard(FindingsInfoCSS.foundCharacters)
-      } else if (character === veryHard?.id) {
-        setFoundVeryHard(FindingsInfoCSS.foundCharacters)
+interface ExtendedGameProps {
+  game:
+    | {
+        cover: string
+        images: {
+          [key: string]: string
+        }
+        names: {
+          [key: string]: string
+        }
       }
-    })
-  }, [foundCharacters, easy, medium, hard, veryHard])
+    | undefined
+  foundEasy: string
+  foundMedium: string
+  foundHard: string
+  foundVeryHard: string
+}
 
+export default function FindingsInfo({
+  game,
+  foundEasy,
+  foundMedium,
+  foundHard,
+  foundVeryHard,
+}: ExtendedGameProps) {
   return (
     <div className={FindingsInfoCSS.findings}>
       <ul className={FindingsInfoCSS.ul}>
@@ -78,3 +76,87 @@ export default function FindingsInfo({ game, foundCharacters }: GameProps) {
     </div>
   )
 }
+
+// const [undiscoveredCharacters, setUndiscoveredCharacters] = useState<
+//   (string | undefined)[]
+// >([
+//   game?.names.easy,
+//   game?.names.medium,
+//   game?.names.hard,
+//   game?.names.veryHard,
+// ])
+// const [undiscoveredCharacters, setUndiscoveredCharacters] = useState<
+//   (string | undefined)[]
+// >([
+//   game?.images.easy,
+//   game?.images.medium,
+//   game?.images.hard,
+//   game?.images.veryHard,
+// ])
+
+/* {undiscoveredCharacters.map((character) => {
+          return (
+            <li key={character} className={FindingsInfoCSS.li}>
+              <img
+                className={FindingsInfoCSS.img}
+                src={game?.images.character}
+                alt={character}
+              />
+              {character}
+            </li>
+          )
+        })} */
+
+// import { useEffect, useState } from 'react'
+// import FindingsInfoCSS from './FindingsInfo.module.css'
+// import { GameProps } from './Navbar'
+
+// interface ExtendedGameProps extends GameProps {
+//   remainingCharactersStatus: boolean
+// }
+
+// export default function FindingsInfo({
+//   game,
+//   foundCharacters,
+//   remainingCharactersStatus,
+// }: ExtendedGameProps) {
+//   const [foundCharactersState, setFoundCharactersState] = useState({
+//     easy: '',
+//     medium: '',
+//     hard: '',
+//     veryHard: '',
+//   })
+
+//   useEffect(() => {
+//     if (remainingCharactersStatus) {
+//       const foundCharactersMap = foundCharacters.reduce((acc, character) => {
+//         if (game?.names[character]) {
+//           acc[character] = FindingsInfoCSS.foundCharacters
+//         }
+//         return acc
+//       }, {} as Record<string, string>)
+//       setFoundCharactersState(foundCharactersMap)
+//     }
+//   }, [game?.names, foundCharacters, remainingCharactersStatus])
+
+//   return (
+//     <div className={FindingsInfoCSS.findings}>
+//       <ul className={FindingsInfoCSS.ul}>
+//         {Object.entries(game?.names).map(([key, name]) => (
+//           <li
+//             key={key}
+//             id={name}
+//             className={`${FindingsInfoCSS.li} ${foundCharactersState[key]}`}
+//           >
+//             <img
+//               className={FindingsInfoCSS.img}
+//               src={game?.images[key]}
+//               alt={name}
+//             />
+//             {name}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   )
+// }

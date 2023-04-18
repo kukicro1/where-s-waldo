@@ -10,13 +10,13 @@ import cartoonUniverse from './components/game_photo/cartoon-universe.jpg'
 import waldoOnSnow from './components/game_photo/waldo_on_snow.jpg'
 import cartoonUniverseCover from './components/game_photo/cartoon-universe-cover.jpg'
 import waldoOnSnowCover from './components/game_photo/waldo_on_snow-cover.jpg'
-import digimon from './components/game_photo/digimon.png'
-import waldo from './components/game_photo/waldo.png'
-import pokeball from './components/game_photo/pokeball.png'
-import sonic from './components/game_photo/sonic.png'
-import wilma from './components/game_photo/wilma.png'
-import thief from './components/game_photo/thief.png'
-import wizard from './components/game_photo/wizard.png'
+import Digimon from './components/game_photo/digimon.png'
+import Waldo from './components/game_photo/waldo.png'
+import Pokeball from './components/game_photo/pokeball.png'
+import Sonic from './components/game_photo/sonic.png'
+import Wilma from './components/game_photo/wilma.png'
+import Thief from './components/game_photo/thief.png'
+import Wizard from './components/game_photo/wizard.png'
 
 interface GameProps {
   cover: string
@@ -32,10 +32,10 @@ const games: GameProps[] = [
   {
     cover: cartoonUniverseCover,
     images: {
-      easy: digimon,
-      medium: waldo,
-      hard: pokeball,
-      veryHard: sonic,
+      easy: Digimon,
+      medium: Waldo,
+      hard: Pokeball,
+      veryHard: Sonic,
     },
     names: {
       easy: 'Digimon',
@@ -47,10 +47,10 @@ const games: GameProps[] = [
   {
     cover: waldoOnSnowCover,
     images: {
-      easy: waldo,
-      medium: wilma,
-      hard: thief,
-      veryHard: wizard,
+      easy: Waldo,
+      medium: Wilma,
+      hard: Thief,
+      veryHard: Wizard,
     },
     names: {
       easy: 'Waldo',

@@ -26,14 +26,7 @@ export default function StartGame({
         items={games.map((game) => (
           <div key={game.cover} className={StartGameCSS.carouselContainer}>
             <div>
-              <CarouselCard
-                game={game}
-                setGame={setGame}
-                // cover={game.cover}
-                // images={game.images}
-                // alternative={game.alt}
-                // setCover={setCover}
-              />
+              <CarouselCard game={game} setGame={setGame} />
             </div>
           </div>
         ))}
