@@ -11,10 +11,10 @@ interface CarouselCardProps {
       [key: string]: string
     }
   }
-  setGame: Function
+  startGame: Function
 }
 
-export default function CarouselCard({ game, setGame }: CarouselCardProps) {
+export default function CarouselCard({ game, startGame }: CarouselCardProps) {
   return (
     <div className={CarouselCardCSS.cardContainer}>
       <div className={CarouselCardCSS.imageContainer}>
@@ -67,7 +67,7 @@ export default function CarouselCard({ game, setGame }: CarouselCardProps) {
           </div>
         </div>
         <div>
-          <Link to='/game' onClick={() => setGame(game.cover, game)}>
+          <Link to='/game' onClick={() => startGame(game.cover, game)}>
             <button className={CarouselCardCSS.button}>Start</button>
           </Link>
         </div>

@@ -86,7 +86,11 @@ export default function Navbar({ game, foundCharacters }: GameProps) {
           <div className={NavbarCSS.newGame}>Find Us</div>
         ) : (
           <div className={NavbarCSS.newGame}>
-            <Link to='/' className={NavbarCSS.link}>
+            <Link
+              to='/'
+              className={NavbarCSS.link}
+              onClick={() => 'restartGame'}
+            >
               New Game
             </Link>
           </div>

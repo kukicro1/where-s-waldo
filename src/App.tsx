@@ -1,22 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
-import Game from './components/Game'
-import Navbar from './components/Navbar'
-import Result from './components/Result'
-import StartGame from './components/StartGame'
-import Footer from './components/Footer'
+import Game from './components/game/Game'
+import Navbar from './components/navigation/Navbar'
+import Result from './components/result/Result'
+import StartGame from './components/home_page/StartGame'
+import Footer from './components/footer/Footer'
 // Images:
-import cartoonUniverse from './components/game_photo/cartoon-universe.jpg'
-import waldoOnSnow from './components/game_photo/waldo_on_snow.jpg'
-import cartoonUniverseCover from './components/game_photo/cartoon-universe-cover.jpg'
-import waldoOnSnowCover from './components/game_photo/waldo_on_snow-cover.jpg'
-import Digimon from './components/game_photo/digimon.png'
-import Waldo from './components/game_photo/waldo.png'
-import Pokeball from './components/game_photo/pokeball.png'
-import Sonic from './components/game_photo/sonic.png'
-import Wilma from './components/game_photo/wilma.png'
-import Thief from './components/game_photo/thief.png'
-import Wizard from './components/game_photo/wizard.png'
+import cartoonUniverse from './components/assets/cartoon-universe.jpg'
+import waldoOnSnow from './components/assets/waldo_on_snow.jpg'
+import cartoonUniverseCover from './components/assets/cartoon-universe-cover.jpg'
+import waldoOnSnowCover from './components/assets/waldo_on_snow-cover.jpg'
+import Digimon from './components/assets/digimon.png'
+import Waldo from './components/assets/waldo.png'
+import Pokeball from './components/assets/pokeball.png'
+import Sonic from './components/assets/sonic.png'
+import Wilma from './components/assets/wilma.png'
+import Thief from './components/assets/thief.png'
+import Wizard from './components/assets/wizard.png'
 
 interface GameProps {
   cover: string
@@ -66,36 +66,41 @@ function App() {
   const [menuNames, setMenuNames] = useState<{
     [key: string]: string
   }>()
-  const [chosenGame, setChosenGame] = useState<GameProps>()
+  const [selectedGame, setSelectedGame] = useState<GameProps>()
   const [foundCharacters, setFoundCharacters] = useState<
     (string | undefined)[]
   >([])
 
-  function setGame(cover: string, game: GameProps) {
+  function restartGame() {
+    // when clicked on new game
+    // when game is over
+  }
+
+  function startGame(cover: string, game: GameProps) {
     setGameImage(cover === cartoonUniverseCover ? cartoonUniverse : waldoOnSnow)
     setMenuNames(game.names)
-    setChosenGame(game)
+    setSelectedGame(game)
   }
 
   function checkFindings(character: string | undefined) {
-    if (character === chosenGame?.names.easy) {
+    if (character === selectedGame?.names.easy) {
       return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === chosenGame?.names.medium) {
+    } else if (character === selectedGame?.names.medium) {
       return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === chosenGame?.names.hard) {
+    } else if (character === selectedGame?.names.hard) {
       return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === chosenGame?.names.veryHard) {
+    } else if (character === selectedGame?.names.veryHard) {
       return setFoundCharacters((prevFound) => [...prevFound, character])
     }
   }
 
   return (
     <>
-      <Navbar game={chosenGame} foundCharacters={foundCharacters} />
+      <Navbar game={selectedGame} foundCharacters={foundCharacters} />
       <Routes>
         <Route
           path='/'
-          element={<StartGame games={games} setGame={setGame} />}
+          element={<StartGame games={games} startGame={startGame} />}
         />
         <Route
           path='/game'

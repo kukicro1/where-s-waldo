@@ -13,12 +13,12 @@ interface StartGameProps {
       [key: string]: string
     }
   }[]
-  setGame: Function
+  startGame: Function
 }
 
 export default function StartGame({
   games,
-  setGame,
+  startGame,
 }: StartGameProps): JSX.Element {
   return (
     <div className={StartGameCSS.container}>
@@ -26,7 +26,7 @@ export default function StartGame({
         items={games.map((game) => (
           <div key={game.cover} className={StartGameCSS.carouselContainer}>
             <div>
-              <CarouselCard game={game} setGame={setGame} />
+              <CarouselCard game={game} startGame={startGame} />
             </div>
           </div>
         ))}
