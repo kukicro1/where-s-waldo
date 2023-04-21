@@ -67,15 +67,16 @@ function App() {
     [key: string]: string
   }>()
   const [isRunning, setIsRunning] = useState<boolean>(false)
+
   const [selectedGame, setSelectedGame] = useState<GameProps>()
   const [foundCharacters, setFoundCharacters] = useState<
     (string | undefined)[]
   >([])
 
   function restartGame() {
-    setIsRunning(false)
-    // when clicked on new game
     // when game is over
+    setFoundCharacters([])
+    setIsRunning(false)
   }
 
   function startGame(cover: string, game: GameProps) {

@@ -37,38 +37,45 @@ export default function Navbar({
   const [foundMedium, setFoundMedium] = useState('')
   const [foundHard, setFoundHard] = useState('')
   const [foundVeryHard, setFoundVeryHard] = useState('')
-
-  const [remainingCharactersStatus, setRemainingCharactersStatus] =
-    useState(false)
-  const [renderRemainingFindings, setRenderRemainingFindings] =
-    useState<JSX.Element | null>(null)
   const [remainingCharacterCounter, setRemainingCharacterCounter] =
     useState<number>(4)
+  const [showFindingsInfoMenu, setShowFindingsInfoMenu] = useState(false)
+  const [renderRemainingFindings, setRenderRemainingFindings] =
+    useState<JSX.Element | null>(null)
 
   function showFindingsInfo() {
-    setRemainingCharactersStatus((prevStatus) => !prevStatus)
+    setShowFindingsInfoMenu((prevStatus) => !prevStatus)
   }
 
   // Update undiscovered characters menu
   useEffect(() => {
-    foundCharacters.forEach((character) => {
-      if (character === names?.easy) {
-        setFoundEasy(FindingsInfoCSS.foundCharacterStyle)
-      } else if (character === names?.medium) {
-        setFoundMedium(FindingsInfoCSS.foundCharacterStyle)
-      } else if (character === names?.hard) {
-        setFoundHard(FindingsInfoCSS.foundCharacterStyle)
-      } else if (character === names?.veryHard) {
-        setFoundVeryHard(FindingsInfoCSS.foundCharacterStyle)
-      }
-    })
-    setRemainingCharacterCounter(4 - foundCharacters.length)
+    if (foundCharacters.length === 0) {
+      setFoundEasy('')
+      setFoundMedium('')
+      setFoundHard('')
+      setFoundVeryHard('')
+      setShowFindingsInfoMenu(false)
+      setRemainingCharacterCounter(4)
+    } else {
+      foundCharacters.forEach((character) => {
+        if (character === names?.easy) {
+          setFoundEasy(FindingsInfoCSS.foundCharacterStyle)
+        } else if (character === names?.medium) {
+          setFoundMedium(FindingsInfoCSS.foundCharacterStyle)
+        } else if (character === names?.hard) {
+          setFoundHard(FindingsInfoCSS.foundCharacterStyle)
+        } else if (character === names?.veryHard) {
+          setFoundVeryHard(FindingsInfoCSS.foundCharacterStyle)
+        }
+      })
+      setRemainingCharacterCounter(4 - foundCharacters.length)
+    }
   }, [foundCharacters, names])
 
   // Render undiscovered characters menu
   useEffect(() => {
     setRenderRemainingFindings(
-      remainingCharactersStatus ? (
+      showFindingsInfoMenu ? (
         <FindingsInfo
           game={game}
           foundEasy={foundEasy}
@@ -79,7 +86,7 @@ export default function Navbar({
       ) : null
     )
   }, [
-    remainingCharactersStatus,
+    showFindingsInfoMenu,
     game,
     foundEasy,
     foundHard,
