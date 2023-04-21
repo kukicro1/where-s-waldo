@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import NavbarCSS from './Navbar.module.css'
 import FindingsInfoCSS from './FindingsInfo.module.css'
 import FindingsInfo from './FindingsInfo'
+import Timer from './Timer'
 
 export interface GameProps {
   game:
@@ -17,9 +18,16 @@ export interface GameProps {
       }
     | undefined
   foundCharacters: (string | undefined)[]
+  isRunning: boolean
+  restartGame: Function
 }
 
-export default function Navbar({ game, foundCharacters }: GameProps) {
+export default function Navbar({
+  game,
+  foundCharacters,
+  isRunning,
+  restartGame,
+}: GameProps) {
   const { pathname } = useLocation()
   const isHomePage = pathname === '/'
 
@@ -89,13 +97,13 @@ export default function Navbar({ game, foundCharacters }: GameProps) {
             <Link
               to='/'
               className={NavbarCSS.link}
-              onClick={() => 'restartGame'}
+              onClick={() => restartGame()}
             >
               New Game
             </Link>
           </div>
         )}
-        {!isHomePage && <div id='timer'>00:00</div>}
+        {!isHomePage && <Timer isRunning={isRunning} />}
         {!isHomePage && (
           <div className={NavbarCSS.findingsContainer}>
             <div className={NavbarCSS.findingsLeft} onClick={showFindingsInfo}>

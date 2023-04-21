@@ -66,12 +66,14 @@ function App() {
   const [menuNames, setMenuNames] = useState<{
     [key: string]: string
   }>()
+  const [isRunning, setIsRunning] = useState<boolean>(false)
   const [selectedGame, setSelectedGame] = useState<GameProps>()
   const [foundCharacters, setFoundCharacters] = useState<
     (string | undefined)[]
   >([])
 
   function restartGame() {
+    setIsRunning(false)
     // when clicked on new game
     // when game is over
   }
@@ -80,6 +82,7 @@ function App() {
     setGameImage(cover === cartoonUniverseCover ? cartoonUniverse : waldoOnSnow)
     setMenuNames(game.names)
     setSelectedGame(game)
+    setIsRunning(true)
   }
 
   function checkFindings(character: string | undefined) {
@@ -96,7 +99,12 @@ function App() {
 
   return (
     <>
-      <Navbar game={selectedGame} foundCharacters={foundCharacters} />
+      <Navbar
+        game={selectedGame}
+        foundCharacters={foundCharacters}
+        isRunning={isRunning}
+        restartGame={restartGame}
+      />
       <Routes>
         <Route
           path='/'
