@@ -22,6 +22,8 @@ export default function Game({
   const [menu, setMenu] = useState<JSX.Element | null>()
 
   function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+    console.log(`width: ${e.pageX}`)
+    console.log(`height: ${e.pageY}`)
     setMenuPosition({ x: e.pageX, y: e.pageY })
     setMenuStatus((pervStatus) => !pervStatus)
     return

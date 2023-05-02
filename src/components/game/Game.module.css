@@ -1,6 +1,6 @@
 .image {
   height: auto;
   max-width: 100%;
-  padding-top: 70px;
+  padding-top: 60px;
   cursor: url('/src/components/assets/custom-cursor.svg') 50 50, auto;
 }
