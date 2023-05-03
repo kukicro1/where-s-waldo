@@ -18,21 +18,21 @@ export interface GameProps {
       }
     | undefined
   foundCharacters: (string | undefined)[]
-  isRunning: boolean
   restartGame: Function
+  formatTime: Function
+  time: number
 }
 
 export default function Navbar({
   game,
   foundCharacters,
-  isRunning,
   restartGame,
+  formatTime,
+  time,
 }: GameProps) {
   const { pathname } = useLocation()
   const isHomePage = pathname === '/'
-
   const { names } = game || {}
-
   const [foundEasy, setFoundEasy] = useState('')
   const [foundMedium, setFoundMedium] = useState('')
   const [foundHard, setFoundHard] = useState('')
@@ -110,7 +110,7 @@ export default function Navbar({
             </Link>
           </div>
         )}
-        {!isHomePage && <Timer isRunning={isRunning} />}
+        {!isHomePage && <Timer formatTime={formatTime} time={time} />}
         {!isHomePage && (
           <div className={NavbarCSS.findingsContainer}>
             <div className={NavbarCSS.findingsLeft} onClick={showFindingsInfo}>

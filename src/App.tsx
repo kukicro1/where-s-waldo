@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
-import { MouseEvent, useEffect, useState } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 import Game from './components/game/Game'
 import Navbar from './components/navigation/Navbar'
 import Result from './components/result/Result'
@@ -95,6 +95,34 @@ function App() {
   const [characterPosition, setCharactersPositions] =
     useState<CharacterPosition>({})
   const [imageSize, setImageSize] = useState<ImageSize | undefined>()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const [time, setTime] = useState<number>(0)
+  const intervalId = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    if (isRunning) {
+      const id = setInterval(() => {
+        setTime((prevTime) => prevTime + 1)
+      }, 1000)
+      intervalId.current = id
+    } else {
+      if (intervalId.current) clearInterval(intervalId.current)
+    }
+    return () => {
+      if (intervalId.current) clearInterval(intervalId.current)
+    }
+  }, [isRunning, intervalId])
+
+  const formatTime = useCallback((time: number) => {
+    const hours = Math.floor(time / 3600)
+    const minutes = Math.floor((time % 3600) / 60)
+    const seconds = time % 60
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+  }, [])
 
   function renderMenu(e: MouseEvent<HTMLImageElement, globalThis.MouseEvent>) {
     setMenuPosition({ x: e.pageX, y: e.pageY })
@@ -119,9 +147,9 @@ function App() {
   }
 
   function restartGame() {
-    // when game is over
     setFoundCharacters([])
     setIsRunning(false)
+    setTime(0)
   }
 
   function startGame(cover: string, game: GameProps) {
@@ -176,16 +204,24 @@ function App() {
 
   useEffect(() => {
     setMenuStatus(false)
-  }, [foundCharacters])
+    if (foundCharacters.length === 4) {
+      navigate('/result')
+      setIsRunning(false)
+    }
+  }, [foundCharacters, navigate])
 
   return (
     <>
-      <Navbar
-        game={selectedGame}
-        foundCharacters={foundCharacters}
-        isRunning={isRunning}
-        restartGame={restartGame}
-      />
+      {location.pathname !== '/result' && (
+        <Navbar
+          game={selectedGame}
+          foundCharacters={foundCharacters}
+          restartGame={restartGame}
+          formatTime={formatTime}
+          time={time}
+        />
+      )}
+
       <Routes>
         <Route
           path='/'
@@ -205,9 +241,18 @@ function App() {
             />
           }
         />
-        <Route path='/result' element={<Result />} />
+        <Route
+          path='/result'
+          element={
+            <Result
+              restartGame={restartGame}
+              formatTime={formatTime}
+              time={time}
+            />
+          }
+        />
       </Routes>
-      <Footer />
+      {location.pathname !== '/result' && <Footer />}
     </>
   )
 }
