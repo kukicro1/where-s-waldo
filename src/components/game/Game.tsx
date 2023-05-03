@@ -9,6 +9,12 @@ interface GameProps {
   }
   checkFindings: Function
   foundCharacters: (string | undefined)[]
+  menuPosition: {
+    x: number
+    y: number
+  }
+  menuStatus: boolean
+  renderMenu: Function
 }
 
 export default function Game({
@@ -16,18 +22,11 @@ export default function Game({
   names,
   checkFindings,
   foundCharacters,
+  menuPosition,
+  menuStatus,
+  renderMenu,
 }: GameProps) {
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
-  const [menuStatus, setMenuStatus] = useState(false)
   const [menu, setMenu] = useState<JSX.Element | null>()
-
-  function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-    console.log(`width: ${e.pageX}`)
-    console.log(`height: ${e.pageY}`)
-    setMenuPosition({ x: e.pageX, y: e.pageY })
-    setMenuStatus((pervStatus) => !pervStatus)
-    return
-  }
 
   useEffect(() => {
     menuStatus
@@ -44,13 +43,12 @@ export default function Game({
 
   useEffect(() => {
     setMenu(null)
-    setMenuStatus(false)
   }, [foundCharacters])
 
   return (
     <div>
       <img
-        onClick={(e) => handleClick(e)}
+        onClick={(e) => renderMenu(e)}
         className={GameCSS.image}
         src={gameImage}
         alt=''

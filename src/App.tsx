@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import Game from './components/game/Game'
 import Navbar from './components/navigation/Navbar'
 import Result from './components/result/Result'
@@ -19,6 +19,7 @@ import Thief from './components/assets/thief.png'
 import Wizard from './components/assets/wizard.png'
 
 interface GameProps {
+  name: string
   cover: string
   images: {
     [key: string]: string
@@ -28,8 +29,25 @@ interface GameProps {
   }
 }
 
+type ImageSize = {
+  width: number
+  height: number
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
+
+type CharacterPosition = {
+  [key: string]: {
+    x: number
+    y: number
+  }
+}
+
 const games: GameProps[] = [
   {
+    name: 'CartoonUniverse',
     cover: cartoonUniverseCover,
     images: {
       easy: Digimon,
@@ -45,6 +63,7 @@ const games: GameProps[] = [
     },
   },
   {
+    name: 'WaldoOnSnow',
     cover: waldoOnSnowCover,
     images: {
       easy: Waldo,
@@ -67,11 +86,37 @@ function App() {
     [key: string]: string
   }>()
   const [isRunning, setIsRunning] = useState<boolean>(false)
-
   const [selectedGame, setSelectedGame] = useState<GameProps>()
   const [foundCharacters, setFoundCharacters] = useState<
     (string | undefined)[]
   >([])
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
+  const [menuStatus, setMenuStatus] = useState(false)
+  const [characterPosition, setCharactersPositions] =
+    useState<CharacterPosition>({})
+  const [imageSize, setImageSize] = useState<ImageSize | undefined>()
+
+  function renderMenu(e: MouseEvent<HTMLImageElement, globalThis.MouseEvent>) {
+    setMenuPosition({ x: e.pageX, y: e.pageY })
+    setMenuStatus((prevStatus) => !prevStatus)
+    const target = e.target as HTMLImageElement
+    setImageSize(target.getBoundingClientRect())
+    if (selectedGame?.name === 'CartoonUniverse') {
+      setCharactersPositions({
+        easy: { x: 0.036, y: 0.7353 },
+        medium: { x: 0.8219, y: 0.8368 },
+        hard: { x: 0.7541, y: 0.2878 },
+        veryHard: { x: 0.3425, y: 0.794 },
+      })
+    } else if (selectedGame?.name === 'WaldoOnSnow') {
+      setCharactersPositions({
+        easy: { x: 0.85, y: 0.76 },
+        medium: { x: 0.49, y: 0.44 },
+        hard: { x: 0.32, y: 0.66 },
+        veryHard: { x: 0.07, y: 0.78 },
+      })
+    }
+  }
 
   function restartGame() {
     // when game is over
@@ -87,16 +132,51 @@ function App() {
   }
 
   function checkFindings(character: string | undefined) {
-    if (character === selectedGame?.names.easy) {
-      return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === selectedGame?.names.medium) {
-      return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === selectedGame?.names.hard) {
-      return setFoundCharacters((prevFound) => [...prevFound, character])
-    } else if (character === selectedGame?.names.veryHard) {
-      return setFoundCharacters((prevFound) => [...prevFound, character])
+    if (imageSize !== undefined) {
+      const relativeX = menuPosition.x / imageSize.width
+      const relativeY = (menuPosition.y - 60) / (imageSize.height - 60)
+      let tolerance
+      selectedGame?.name === 'WaldoOnSnow'
+        ? (tolerance = 0.04)
+        : (tolerance = 0.01)
+      if (character === selectedGame?.names.easy) {
+        const distanceX = Math.abs(characterPosition.easy.x - relativeX)
+        const distanceY = Math.abs(characterPosition.easy.y - relativeY)
+        if (distanceX < tolerance && distanceY < tolerance) {
+          alert(`You found ${character}!`)
+          return setFoundCharacters((prevFound) => [...prevFound, character])
+        } else alert('Keep looking!')
+      } else if (character === selectedGame?.names.medium) {
+        const distanceX = Math.abs(characterPosition.medium.x - relativeX)
+        const distanceY = Math.abs(characterPosition.medium.y - relativeY)
+        if (distanceX < tolerance && distanceY < tolerance) {
+          alert(`You found ${character}`)
+          return setFoundCharacters((prevFound) => [...prevFound, character])
+        } else {
+          alert('Keep looking!')
+        }
+      } else if (character === selectedGame?.names.hard) {
+        const distanceX = Math.abs(characterPosition.hard.x - relativeX)
+        const distanceY = Math.abs(characterPosition.hard.y - relativeY)
+        if (distanceX < tolerance && distanceY < tolerance) {
+          alert(`You found ${character}`)
+          return setFoundCharacters((prevFound) => [...prevFound, character])
+        } else alert('Keep looking!')
+      } else if (character === selectedGame?.names.veryHard) {
+        const distanceX = Math.abs(characterPosition.veryHard.x - relativeX)
+        const distanceY = Math.abs(characterPosition.veryHard.y - relativeY)
+        if (distanceX < tolerance && distanceY < tolerance) {
+          alert(`You found ${character}`)
+          return setFoundCharacters((prevFound) => [...prevFound, character])
+        } else alert('Keep looking!')
+      }
     }
+    setMenuStatus(false)
   }
+
+  useEffect(() => {
+    setMenuStatus(false)
+  }, [foundCharacters])
 
   return (
     <>
@@ -119,6 +199,9 @@ function App() {
               names={menuNames}
               checkFindings={checkFindings}
               foundCharacters={foundCharacters}
+              menuPosition={menuPosition}
+              menuStatus={menuStatus}
+              renderMenu={renderMenu}
             />
           }
         />

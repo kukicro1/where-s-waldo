@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
-import firebase from 'firebase/app'
-// import { initializeApp } from 'firebase/app'
-import 'firebase/firestore'
+import { initializeApp } from 'firebase/app'
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { collection, getDocs, getFirestore } from 'firebase/firestore'
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyBwhQuJ-ZyZRtvgsk7keAv4WUzlZvzuArU',
   authDomain: 'where-s-waldo-c8ee6.firebaseapp.com',
@@ -16,7 +11,16 @@ const firebaseConfig = {
   appId: '1:394394211623:web:d6494e5584f5ff39940502',
 }
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+initializeApp(firebaseConfig)
 
-export default firebase
+const db = getFirestore()
+
+const colRef = collection(db, 'CartoonUniverse')
+
+getDocs(colRef).then((snapshot) => {
+  let game: any = []
+  snapshot.docs.forEach((doc) => {
+    game.push({ ...doc.data(), id: doc.id })
+  })
+  console.log(game)
+})
