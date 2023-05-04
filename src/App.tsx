@@ -248,6 +248,7 @@ function App() {
               restartGame={restartGame}
               formatTime={formatTime}
               time={time}
+              selectedGame={selectedGame?.name}
             />
           }
         />

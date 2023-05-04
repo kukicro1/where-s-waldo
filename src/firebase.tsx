@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
-
-import { collection, getDocs, getFirestore } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBwhQuJ-ZyZRtvgsk7keAv4WUzlZvzuArU',
@@ -13,14 +12,4 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig)
 
-const db = getFirestore()
-
-const colRef = collection(db, 'CartoonUniverse')
-
-getDocs(colRef).then((snapshot) => {
-  let game: any = []
-  snapshot.docs.forEach((doc) => {
-    game.push({ ...doc.data(), id: doc.id })
-  })
-  console.log(game)
-})
+export const db = getFirestore()
